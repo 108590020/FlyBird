@@ -4,30 +4,39 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour
 {
-    Vector2 _startPosition;
+    [SerializeField] float _launchForce = 500;
 
+    Vector2 _startPosition;
+    Rigidbody2D _rigidbody2D;
+    SpriteRenderer _spriteRenderer;
+
+    private void Awake()
+    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        _startPosition = GetComponent<Rigidbody2D>().position;
+        _startPosition = _rigidbody2D.position;
         //It's not moved or controlled by physics objects or the physics system on its own.
-        GetComponent<Rigidbody2D>().isKinematic = true;
+        _rigidbody2D.isKinematic = true;
     }
     void OnMouseDown()
     {
-        GetComponent<SpriteRenderer>().color = Color.red;
+        _spriteRenderer.color = Color.red;
     }
     void OnMouseUp()
     {
-        Vector2 currentPosition = GetComponent<Rigidbody2D>().position;
+        Vector2 currentPosition = _rigidbody2D.position;
         Vector2 direction = _startPosition - currentPosition;
         direction.Normalize();
 
-        GetComponent<Rigidbody2D>().isKinematic = false;
-        GetComponent<Rigidbody2D>().AddForce(direction * 500);
+        _rigidbody2D.isKinematic = false;
+        _rigidbody2D.AddForce(direction * _launchForce);
 
 
-        GetComponent<SpriteRenderer>().color = Color.white;
+        _spriteRenderer.color = Color.white;
     }
     void OnMouseDrag()
     {
