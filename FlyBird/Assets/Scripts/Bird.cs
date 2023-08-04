@@ -18,6 +18,7 @@ public class Bird : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // use _rigidbody2D.position replace transform position because we are working in 2D vector
         _startPosition = _rigidbody2D.position;
         //It's not moved or controlled by physics objects or the physics system on its own.
         _rigidbody2D.isKinematic = true;
@@ -47,5 +48,10 @@ public class Bird : MonoBehaviour
     void Update()
     {
         
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        _rigidbody2D.position = _startPosition;
+        _rigidbody2D.isKinematic = true;
     }
 }
