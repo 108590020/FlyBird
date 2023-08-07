@@ -53,11 +53,17 @@ public class Bird : MonoBehaviour
             Vector2 direction = desiredPosition - _startPosition;
             direction.Normalize();
             desiredPosition = _startPosition + (direction * _maxDragDistance);
+            //Debug.Log("> maxPosition");
         }
 
         if (desiredPosition.x > _startPosition.x)
+        {
             desiredPosition.x = _startPosition.x;
+            //Debug.Log("> startPosition");
+        }
+            
 
+        
         _rigidbody2D.position = desiredPosition;
     }
     // Update is called once per frame
